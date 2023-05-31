@@ -1,8 +1,9 @@
+import { useLoaderData } from "react-router-dom";
 import "./App.css";
-import { db } from "../config/firebase";
 
 function App() {
-  console.log(db);
+  const { coffees } = useLoaderData();
+  console.log(coffees);
   return (
     <>
       <h1>What&apos;s Up World</h1>
