@@ -5,7 +5,7 @@ const CoffeeCard = ({ coffee }) => {
 
   return (
     <>
-      <h3>{name}</h3>
+      <h4>{name}</h4>
       <p>{roaster}</p>
       <p>{origin}</p>
       <p>{process}</p>

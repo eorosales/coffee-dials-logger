@@ -37,6 +37,7 @@ const NewCoffeeForm = () => {
         origin: formData.origin,
         process: formData.process,
         flavor_notes: formData.flavorNotes.split(", "),
+        favorite: true,
       });
       revalidator.revalidate();
     } catch (err) {
