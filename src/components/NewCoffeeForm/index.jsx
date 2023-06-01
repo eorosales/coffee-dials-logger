@@ -20,7 +20,7 @@ const NewCoffeeForm = () => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    const value = capitalize(e.target.value);
+    const value = e.target.value;
     const name = e.target.name;
     setFormData((prevState) => ({
       ...prevState,
@@ -30,14 +30,15 @@ const NewCoffeeForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       await addDoc(coffeesCollectionRef, {
-        roaster: formData.roaster,
-        name: formData.name,
-        origin: formData.origin,
-        process: formData.process,
-        flavor_notes: formData.flavorNotes.split(", "),
-        favorite: true,
+        roaster: capitalize(formData.roaster),
+        name: capitalize(formData.name),
+        origin: capitalize(formData.origin),
+        process: capitalize(formData.process),
+        flavor_notes: capitalize(formData.flavorNotes).split(","),
+        favorite: false,
         createdAt: Date.now(),
       });
       revalidator.revalidate();
