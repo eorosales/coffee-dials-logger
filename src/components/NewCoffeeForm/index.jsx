@@ -38,6 +38,7 @@ const NewCoffeeForm = () => {
         process: formData.process,
         flavor_notes: formData.flavorNotes.split(", "),
         favorite: true,
+        createdAt: Date.now(),
       });
       revalidator.revalidate();
     } catch (err) {

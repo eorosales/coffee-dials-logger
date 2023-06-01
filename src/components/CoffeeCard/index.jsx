@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, deleteCoffee }) => {
   const { name, roaster, origin, process, flavor_notes } = coffee;
 
   return (
@@ -14,6 +14,7 @@ const CoffeeCard = ({ coffee }) => {
           return <li key={flavor_notes.indexOf(note)}>{note}</li>;
         })}
       </ul>
+      <button onClick={() => deleteCoffee(coffee.id)}>X</button>
     </>
   );
 };
@@ -22,4 +23,5 @@ export default CoffeeCard;
 
 CoffeeCard.propTypes = {
   coffee: PropTypes.object.isRequired,
+  deleteCoffee: PropTypes.func.isRequired,
 };
