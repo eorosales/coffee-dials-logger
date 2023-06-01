@@ -42,6 +42,13 @@ const NewCoffeeForm = () => {
         createdAt: Date.now(),
       });
       revalidator.revalidate();
+      setFormData({
+        roaster: "",
+        name: "",
+        origin: "",
+        process: "",
+        flavorNotes: "",
+      });
     } catch (err) {
       throw new Error(err);
     }

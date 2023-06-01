@@ -1,11 +1,15 @@
 import PropTypes from "prop-types";
+import "./styles.css";
 import { useRevalidator } from "react-router-dom";
-import { deleteDoc, doc } from "firebase/firestore";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
-import UpdateCoffeeForm from "../UpdateCoffeeForm";
+import UpdateCoffeeForm from "../UpdateCoffeeForm/UpdateCoffeeForm";
 
-const CoffeeCard = ({ coffee }) => {
-  const { name, roaster, origin, process, flavor_notes } = coffee;
+const CoffeeCard = ({ coffee, toggleFavorite }) => {
+  const { name, roaster, origin, process, flavor_notes, favorite } = coffee;
+
+  // const coffeeDocRef = doc(db, "coffees", coffee.id);
   const revalidator = useRevalidator();
 
   // Delete coffee and revalidate loader data
@@ -16,7 +20,12 @@ const CoffeeCard = ({ coffee }) => {
   };
 
   return (
-    <>
+    <section className='coffee-card'>
+      {favorite === true ? (
+        <MdFavorite onClick={() => toggleFavorite(coffee.id, favorite)} />
+      ) : (
+        <MdFavoriteBorder onClick={() => toggleFavorite(coffee.id, favorite)} />
+      )}
       <h4>{name}</h4>
       <p>{roaster}</p>
       <p>{origin}</p>
@@ -29,7 +38,7 @@ const CoffeeCard = ({ coffee }) => {
       <button onClick={() => handleDeleteCoffee(coffee.id)}>X</button>
       {/* <button onClick={() => handleUpdateCoffee()}></button> */}
       <UpdateCoffeeForm coffeeInfo={coffee} />
-    </>
+    </section>
   );
 };
 
@@ -37,4 +46,5 @@ export default CoffeeCard;
 
 CoffeeCard.propTypes = {
   coffee: PropTypes.object.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };

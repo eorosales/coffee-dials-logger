@@ -23,7 +23,7 @@ const UpdateCoffeeForm = ({ coffeeInfo }) => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    const value = capitalize(e.target.value);
+    const value = e.target.value;
     const name = e.target.name;
     setUpdateData((prevState) => ({
       ...prevState,
@@ -35,11 +35,11 @@ const UpdateCoffeeForm = ({ coffeeInfo }) => {
     e.preventDefault();
     try {
       await updateDoc(coffeeDocRef, {
-        roaster: updateData.roaster,
-        name: updateData.name,
-        origin: updateData.origin,
-        process: updateData.process,
-        flavor_notes: updateData.flavorNotes.split(","),
+        roaster: capitalize(updateData.roaster),
+        name: capitalize(updateData.name),
+        origin: capitalize(updateData.origin),
+        process: capitalize(updateData.process),
+        flavor_notes: capitalize(updateData.flavorNotes).split(","),
         createdAt: Date.now(),
       });
       revalidator.revalidate();
