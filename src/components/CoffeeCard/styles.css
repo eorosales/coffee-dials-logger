@@ -1,9 +1,10 @@
 .coffee-card {
   border: 1px solid #fff;
   background-color: brown;
-  width: 20%;
+  width: fit-content;
   height: fit-content;
   overflow: hidden;
   margin: 20px;
   border-radius: 15px;
+  padding: 1em;
 }

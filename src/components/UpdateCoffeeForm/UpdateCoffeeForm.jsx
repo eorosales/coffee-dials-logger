@@ -1,3 +1,4 @@
+import "./styles.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
@@ -50,7 +51,7 @@ const UpdateCoffeeForm = ({ coffeeInfo }) => {
 
   return (
     <>
-      <h2>Update Coffee Info</h2>
+      <h4>Update Coffee Info</h4>
       <form onSubmit={handleSubmit}>
         <input
           name='roaster'

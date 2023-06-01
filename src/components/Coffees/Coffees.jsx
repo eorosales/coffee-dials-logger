@@ -57,9 +57,9 @@ const Coffees = ({ coffees }) => {
         {recentCoffees()}
       </section>
       <hr /> */}
-      <section className='coffees-container'>
+      <section>
         <h3>Coffees Gallery</h3>
-        {allCoffees()}
+        <div className='coffees-container'>{allCoffees()}</div>
       </section>
     </>
   );

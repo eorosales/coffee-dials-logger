@@ -26,7 +26,8 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
       ) : (
         <MdFavoriteBorder onClick={() => toggleFavorite(coffee.id, favorite)} />
       )}
-      <h4>{name}</h4>
+
+      <h3>{name}</h3>
       <p>{roaster}</p>
       <p>{origin}</p>
       <p>{process}</p>
@@ -35,9 +36,9 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
           return <li key={flavor_notes.indexOf(note)}>{note}</li>;
         })}
       </ul>
-      <button onClick={() => handleDeleteCoffee(coffee.id)}>X</button>
-      {/* <button onClick={() => handleUpdateCoffee()}></button> */}
+
       <UpdateCoffeeForm coffeeInfo={coffee} />
+      <button onClick={() => handleDeleteCoffee(coffee.id)}>Delete</button>
     </section>
   );
 };
