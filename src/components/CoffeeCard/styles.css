@@ -8,3 +8,13 @@
   border-radius: 15px;
   padding: 1em;
 }
+
+.coffee-card .buttons-btm {
+  display: flex;
+  justify-content: space-between;
+}
+
+.coffee-card .buttons-btm button {
+  flex: 0 1 49.5%;
+  margin-top: 0.1em;
+}

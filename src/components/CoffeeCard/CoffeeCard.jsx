@@ -38,8 +38,12 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
       </ul>
 
       <UpdateCoffeeForm coffeeInfo={coffee} />
-      <button onClick={() => handleDeleteCoffee(coffee.id)}>Delete</button>
-      <Link to={`coffees/${coffee.id}`}>Dials</Link>
+      <div className='buttons-btm'>
+        <button onClick={() => handleDeleteCoffee(coffee.id)}>Delete</button>
+        <button>
+          <Link to={`coffees/${coffee.id}`}>Details</Link>
+        </button>
+      </div>
     </section>
   );
 };
