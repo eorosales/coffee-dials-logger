@@ -49,7 +49,7 @@ const Coffees = ({ coffees }) => {
       <NewCoffeeForm />
       <section>
         <h3>Favorites</h3>
-        {favoriteCoffees()}
+        <div className='coffees-container'>{favoriteCoffees()}</div>
       </section>
       <hr />
       {/* <section>

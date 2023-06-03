@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import "./styles.css";
-import { useRevalidator } from "react-router-dom";
+import { Link, useRevalidator } from "react-router-dom";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
@@ -39,6 +39,7 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
 
       <UpdateCoffeeForm coffeeInfo={coffee} />
       <button onClick={() => handleDeleteCoffee(coffee.id)}>Delete</button>
+      <Link to={`coffees/${coffee.id}`}>Dials</Link>
     </section>
   );
 };
