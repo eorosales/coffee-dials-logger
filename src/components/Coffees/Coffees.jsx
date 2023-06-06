@@ -21,13 +21,6 @@ const Coffees = ({ coffees }) => {
     }
   };
 
-  // const recentCoffees = () =>
-  //   coffees
-  //     .sort((a, b) => b.createdAt - a.createdAt)
-  //     .map((rec) => (
-  //       <CoffeeCard key={rec.id} coffee={rec} toggleFavorite={toggleFavorite} />
-  //     ));
-
   const favoriteCoffees = () =>
     coffees
       .filter((coffee) => coffee.favorite === true)

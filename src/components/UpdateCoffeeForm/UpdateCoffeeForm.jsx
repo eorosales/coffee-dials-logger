@@ -51,7 +51,6 @@ const UpdateCoffeeForm = ({ coffeeInfo }) => {
 
   return (
     <>
-      <h4>Update Coffee Info</h4>
       <form onSubmit={handleSubmit}>
         <input
           name='roaster'

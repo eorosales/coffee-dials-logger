@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { useEffect, useState } from "react";
+import NewDialForm from "../NewDialForm/NewDialForm";
 
 const Coffee = () => {
   const [status, setStatus] = useState("pending");
@@ -30,6 +31,11 @@ const Coffee = () => {
           <p>{coffee.process}</p>
         </>
       )}
+
+      <section>
+        <h2>Dials</h2>
+        <NewDialForm coffeeId={coffeeId} />
+      </section>
     </>
   );
 };
