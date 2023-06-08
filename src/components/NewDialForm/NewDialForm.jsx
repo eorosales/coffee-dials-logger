@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import "./styles.css";
 import { useState } from "react";
 import { db } from "../../../config/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -44,60 +45,63 @@ const NewDialForm = ({ coffeeId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* Temperatute Input */}
-      <div>
-        <label id='temp'>Temperature</label>
-        <input
-          type='number'
-          id='temp'
-          placeholder=' '
-          name='temp'
-          required
-          value={dialInput.temp}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      {/* Weight Input */}
-      <div>
-        <label id='weight'>Weight</label>
-        <input
-          type='number'
-          id='weight'
-          placeholder=' '
-          name='weight'
-          required
-          value={dialInput.weight}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      {/* Time input */}
-      <div>
-        <label id='time'>Time</label>
-        <input
-          type='number'
-          id='time'
-          placeholder=' '
-          name='time'
-          required
-          value={dialInput.time}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <div>
-        <label id='yield'>Yield</label>
-        <input
-          type='number'
-          id='yield'
-          placeholder=' '
-          name='yield'
-          required
-          value={dialInput.yield}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <button type='submit'>Add Dial</button>
-    </form>
+    <section className='new-dial-form__container'>
+      <form className='new-dial-form__form' onSubmit={handleSubmit}>
+        {/* Temperatute Input */}
+        <div>
+          <label id='temp'>Temperature</label>
+          <input
+            type='number'
+            id='temp'
+            placeholder=' '
+            name='temp'
+            required
+            value={dialInput.temp}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        {/* Weight Input */}
+        <div>
+          <label id='weight'>Weight</label>
+          <input
+            type='number'
+            id='weight'
+            placeholder=' '
+            name='weight'
+            required
+            value={dialInput.weight}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        {/* Time input */}
+        <div>
+          <label id='time'>Time</label>
+          <input
+            type='number'
+            id='time'
+            placeholder=' '
+            name='time'
+            required
+            value={dialInput.time}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        {/* Yield input */}
+        <div>
+          <label id='yield'>Yield</label>
+          <input
+            type='number'
+            id='yield'
+            placeholder=' '
+            name='yield'
+            required
+            value={dialInput.yield}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <button type='submit'>Add Dial</button>
+      </form>
+    </section>
   );
 };
 

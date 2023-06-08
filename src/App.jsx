@@ -3,19 +3,17 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./App.css";
-
 import { useLoaderData } from "react-router-dom";
 import Coffees from "./components/Coffees/Coffees";
-import { Container } from "@mui/material";
 
 function App() {
   const { coffees } = useLoaderData();
 
   return (
-    <Container maxWidth='lg'>
+    <>
       <h1>What&apos;s Up Danger</h1>
       <Coffees coffees={coffees} />
-    </Container>
+    </>
   );
 }
 
