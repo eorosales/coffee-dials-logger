@@ -1,12 +1,15 @@
-import "./styles.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
 import { db } from "../../../config/firebase";
 import { capitalize } from "../../utils/capitalize";
+// MUI
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { Button, Container } from "@mui/material";
 
-const UpdateCoffeeForm = ({ coffeeInfo }) => {
+const UpdateCoffeeForm = ({ coffeeInfo, handleDeleteCoffee }) => {
   const { roaster, name, origin, process, flavor_notes } = coffeeInfo;
 
   // Form input controlled value states
@@ -50,46 +53,71 @@ const UpdateCoffeeForm = ({ coffeeInfo }) => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Container>
+      <Box
+        component='form'
+        sx={{
+          "& > :not(style)": { m: 1, width: "25ch" },
+        }}
+        noValidate
+        autoComplete='off'
+        onSubmit={handleSubmit}>
+        <TextField
+          id='filled-basic'
+          label='Roaster'
+          variant='filled'
           name='roaster'
           placeholder='Coffee Roaster'
           value={updateData.roaster}
           onChange={(e) => handleChange(e)}
           required
         />
-        <input
+        <TextField
+          id='filled-basic'
+          label='Name'
+          variant='filled'
           name='name'
           placeholder='Coffee Name'
           value={updateData.name}
           onChange={(e) => handleChange(e)}
           required
         />
-        <input
+        <TextField
+          id='filled-basic'
+          label='Origin'
+          variant='filled'
           name='origin'
           placeholder='Coffee Origin'
           value={updateData.origin}
           onChange={(e) => handleChange(e)}
           required
         />
-        <input
+        <TextField
+          id='filled-basic'
+          label='Process'
+          variant='filled'
           name='process'
           placeholder='Coffee Process'
           value={updateData.process}
           onChange={(e) => handleChange(e)}
           required
         />
-        <input
+        <TextField
+          id='filled-basic'
+          label='Flavor Notes'
+          variant='filled'
           name='flavorNotes'
           placeholder='Coffee Flavor Notes'
           value={updateData.flavorNotes}
           onChange={(e) => handleChange(e)}
           required
         />
-        <button type='submit'>Update</button>
-      </form>
-    </>
+        <Button type='submit'>Update</Button>
+        <Button onClick={() => handleDeleteCoffee(coffeeInfo.id)}>
+          Delete
+        </Button>
+      </Box>
+    </Container>
   );
 };
 
@@ -97,4 +125,5 @@ export default UpdateCoffeeForm;
 
 UpdateCoffeeForm.propTypes = {
   coffeeInfo: PropTypes.object.isRequired,
+  handleDeleteCoffee: PropTypes.func.isRequired,
 };

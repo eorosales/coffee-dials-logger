@@ -5,15 +5,16 @@ import "@fontsource/roboto/700.css";
 import "./App.css";
 import { useLoaderData } from "react-router-dom";
 import Coffees from "./components/Coffees/Coffees";
+import { Container, Typography } from "@mui/material";
 
 function App() {
   const { coffees } = useLoaderData();
 
   return (
-    <>
-      <h1>What&apos;s Up Danger</h1>
+    <Container>
+      <Typography variant='h1'>Coffee Dials Logger</Typography>
       <Coffees coffees={coffees} />
-    </>
+    </Container>
   );
 }
 

@@ -1,10 +1,13 @@
-import "./styles.css";
 import PropTypes from "prop-types";
 import { useRevalidator } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import NewCoffeeForm from "../NewCoffeeForm/NewCoffeeForm";
 import CoffeeCard from "../CoffeeCard/CoffeeCard";
+// MUI
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Unstable_Grid2";
+import { Typography } from "@mui/material";
 
 const Coffees = ({ coffees }) => {
   const revalidator = useRevalidator();
@@ -25,35 +28,33 @@ const Coffees = ({ coffees }) => {
     coffees
       .filter((coffee) => coffee.favorite === true)
       .map((fav) => (
-        <CoffeeCard key={fav.id} coffee={fav} toggleFavorite={toggleFavorite} />
+        <Grid key={fav.id} xs={3}>
+          <CoffeeCard coffee={fav} toggleFavorite={toggleFavorite} />
+        </Grid>
       ));
 
   const allCoffees = () =>
     coffees.map((coffee) => (
-      <CoffeeCard
-        key={coffee.id}
-        coffee={coffee}
-        toggleFavorite={toggleFavorite}
-      />
+      <Grid key={coffee.id} xs={3}>
+        <CoffeeCard coffee={coffee} toggleFavorite={toggleFavorite} />
+      </Grid>
     ));
 
   return (
     <>
       <NewCoffeeForm />
-      <section>
-        <h3>Favorites</h3>
-        <div className='coffees-container'>{favoriteCoffees()}</div>
-      </section>
-      <hr />
-      {/* <section>
-        <h3>Recent</h3>
-        {recentCoffees()}
-      </section>
-      <hr /> */}
-      <section>
-        <h3>Coffees Gallery</h3>
-        <div className='coffees-container'>{allCoffees()}</div>
-      </section>
+      <Box sx={{ flexgrow: 1 }}>
+        <Typography variant='h2'>Favorites</Typography>
+        <Grid container spacing={2}>
+          {favoriteCoffees()}
+        </Grid>
+      </Box>
+      <Box sx={{ flexgrow: 1 }}>
+        <Typography variant='h2'>All Coffees</Typography>
+        <Grid container spacing={2}>
+          {allCoffees()}
+        </Grid>
+      </Box>
     </>
   );
 };

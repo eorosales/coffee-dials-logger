@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useRevalidator } from "react-router-dom";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
-import "./styles.css";
 import NewDialForm from "../NewDialForm/NewDialForm";
 import DialsTable from "../DialsTable/DialsTable";
+import { Container } from "@mui/material";
 
 const CoffeeDetails = () => {
   const [status, setStatus] = useState("pending");
@@ -35,7 +35,7 @@ const CoffeeDetails = () => {
   };
 
   return (
-    <>
+    <Container>
       <h1>Coffee</h1>
       {status === "success" && (
         <>
@@ -62,7 +62,7 @@ const CoffeeDetails = () => {
         <NewDialForm coffeeId={coffeeId} />
         <DialsTable deleteDial={deleteDial} />
       </section>
-    </>
+    </Container>
   );
 };
 

@@ -3,6 +3,8 @@ import { collection, addDoc } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
 import { db } from "../../../config/firebase";
 import { capitalize } from "../../utils/capitalize";
+// MUI
+import Box from "@mui/material/Box";
 
 const NewCoffeeForm = () => {
   // Form input controlled value states
@@ -55,7 +57,14 @@ const NewCoffeeForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Box
+      component='form'
+      sx={{
+        "& > :not(style)": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete='off'
+      onSubmit={handleSubmit}>
       <input
         name='roaster'
         placeholder='Coffee Roaster'
@@ -92,7 +101,7 @@ const NewCoffeeForm = () => {
         required
       />
       <button type='submit'>Submit</button>
-    </form>
+    </Box>
   );
 };
 
