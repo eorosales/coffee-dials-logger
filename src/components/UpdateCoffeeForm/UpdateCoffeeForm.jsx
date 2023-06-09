@@ -1,9 +1,10 @@
+// Utils
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
-import { db } from "../../../config/firebase";
 import { capitalize } from "../../utils/capitalize";
+import { db } from "../../../config/firebase";
 // MUI
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -113,7 +114,9 @@ const UpdateCoffeeForm = ({ coffeeInfo, handleDeleteCoffee }) => {
           required
         />
         <Button type='submit'>Update</Button>
-        <Button onClick={() => handleDeleteCoffee(coffeeInfo.id)}>
+        <Button
+          sx={{ color: "tomato" }}
+          onClick={() => handleDeleteCoffee(coffeeInfo.id)}>
           Delete
         </Button>
       </Box>

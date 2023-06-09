@@ -1,9 +1,9 @@
+// Utils
 import PropTypes from "prop-types";
-import "./styles.css";
 import { useState } from "react";
-import { db } from "../../../config/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
+import { db } from "../../../config/firebase";
 
 const NewDialForm = ({ coffeeId }) => {
   const [dialInput, setDialInput] = useState({

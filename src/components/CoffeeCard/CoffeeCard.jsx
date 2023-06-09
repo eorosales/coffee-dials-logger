@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Link, useRevalidator } from "react-router-dom";
+import { Link as RouterLink, useRevalidator } from "react-router-dom";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styled from "@emotion/styled";
 import { IconButton } from "@mui/material";
+import Link from "@mui/material/Link";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -60,7 +61,9 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
             {flavor_notes[flavor_notes.indexOf(note)]}
           </Typography>
         ))}
-        <Link to={`coffees/${coffee.id}`}>Details</Link>
+        <Link component={RouterLink} to={`coffees/${coffee.id}`}>
+          Details
+        </Link>
       </CardContent>
 
       {/* Card Actions */}

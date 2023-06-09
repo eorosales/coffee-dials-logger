@@ -1,3 +1,5 @@
+// Utils
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
@@ -5,8 +7,9 @@ import { db } from "../../../config/firebase";
 import { capitalize } from "../../utils/capitalize";
 // MUI
 import Box from "@mui/material/Box";
+import { Button, Container, DialogActions, TextField } from "@mui/material";
 
-const NewCoffeeForm = () => {
+const NewCoffeeForm = ({ handleClose }) => {
   // Form input controlled value states
   const [formData, setFormData] = useState({
     roaster: "",
@@ -44,6 +47,7 @@ const NewCoffeeForm = () => {
         createdAt: Date.now(),
       });
       revalidator.revalidate();
+      handleClose();
       setFormData({
         roaster: "",
         name: "",
@@ -57,52 +61,79 @@ const NewCoffeeForm = () => {
   };
 
   return (
-    <Box
-      component='form'
-      sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete='off'
-      onSubmit={handleSubmit}>
-      <input
-        name='roaster'
-        placeholder='Coffee Roaster'
-        value={formData.roaster}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-      <input
-        name='name'
-        placeholder='Coffee Name'
-        value={formData.name}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-      <input
-        name='origin'
-        placeholder='Coffee Origin'
-        value={formData.origin}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-      <input
-        name='process'
-        placeholder='Coffee Process'
-        value={formData.process}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-      <input
-        name='flavorNotes'
-        placeholder='Coffee Flavor Notes'
-        value={formData.flavorNotes}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-      <button type='submit'>Submit</button>
-    </Box>
+    <Container>
+      <Box
+        component='form'
+        sx={{
+          "& > :not(style)": {
+            m: 1,
+            // width: "25ch",
+            display: "flex",
+            flexDirection: "column",
+          },
+        }}
+        autoComplete='off'
+        onSubmit={handleSubmit}>
+        <TextField
+          id='filled-basic'
+          label='Roaster'
+          variant='filled'
+          name='roaster'
+          value={formData.roaster}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+        <TextField
+          id='filled-basic'
+          label='Name'
+          variant='filled'
+          name='name'
+          placeholder='Coffee Name'
+          value={formData.name}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+        <TextField
+          id='filled-basic'
+          label='Origin'
+          variant='filled'
+          name='origin'
+          placeholder='Coffee Origin'
+          value={formData.origin}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+        <TextField
+          id='filled-basic'
+          label='Process'
+          variant='filled'
+          name='process'
+          placeholder='Coffee Process'
+          value={formData.process}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+        <TextField
+          id='filled-basic'
+          label='Flavor Notes'
+          variant='filled'
+          name='flavorNotes'
+          placeholder='Coffee Flavor Notes'
+          value={formData.flavorNotes}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+        <DialogActions sx={{ display: "flex" }}>
+          <Button type='submit'>Add</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+      </Box>
+    </Container>
   );
 };
 
 export default NewCoffeeForm;
+
+NewCoffeeForm.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+};
