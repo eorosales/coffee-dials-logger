@@ -12,7 +12,10 @@ function App() {
 
   return (
     <Container>
-      <Typography variant='h1'>Coffee Dials Logger</Typography>
+      <Typography
+        sx={{ fontSize: "3rem", textAlign: "center", marginBlockEnd: 8 }}>
+        Coffee Dials Logger
+      </Typography>
       <Coffees coffees={coffees} />
     </Container>
   );

@@ -47,7 +47,7 @@ const Coffees = ({ coffees }) => {
     return favorites.length > 0 ? (
       favorites.map((fav) => {
         return (
-          <Grid key={fav.id} xs={12} md={4} lg={3}>
+          <Grid key={fav.id} xs={6} md={4} lg={3}>
             <CoffeeCard coffee={fav} toggleFavorite={toggleFavorite} />
           </Grid>
         );
@@ -64,23 +64,27 @@ const Coffees = ({ coffees }) => {
   // Render all coffees in db
   const allCoffees = () =>
     coffees.map((coffee) => (
-      <Grid key={coffee.id} xs={12} md={4} lg={3}>
+      <Grid key={coffee.id} xs={6} md={4} lg={3}>
         <CoffeeCard coffee={coffee} toggleFavorite={toggleFavorite} />
       </Grid>
     ));
 
   return (
     <>
-      <Box sx={{ flexgrow: 1 }}>
+      <Box sx={{ flexgrow: 1, marginBlockEnd: 4 }}>
         {/* Grid of Coffees that are favorited */}
-        <Typography variant='h2'>Favorites</Typography>
+        <Typography sx={{ fontSize: "2.2em", marginBlockEnd: 1 }}>
+          Favorites
+        </Typography>
         <Grid container spacing={2}>
           {favoriteCoffees()}
         </Grid>
       </Box>
-      <Box sx={{ flexgrow: 1 }}>
+      <Box sx={{ flexgrow: 1, marginBlockEnd: 4 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant='h2'>All Coffees</Typography>
+          <Typography sx={{ fontSize: "2.2em", marginBlockEnd: 1 }}>
+            All Coffees
+          </Typography>
           <Button onClick={handleClickOpen}>Add New Coffee</Button>
           {/* Modal form: Add New Coffee */}
           <Dialog open={open} onClose={handleClose}>
