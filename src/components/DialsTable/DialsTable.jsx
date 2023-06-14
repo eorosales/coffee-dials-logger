@@ -2,54 +2,53 @@
 import PropTypes from "prop-types";
 import { useLoaderData } from "react-router-dom";
 
+// MUI
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const DialsTable = ({ deleteDial }) => {
   const dials = useLoaderData();
 
   return (
-    <div className='relative overflow-x-auto sm:rounded-lg m-20'>
-      <table className='w-3/4 text-sm text-left text-gray-500 dark:text-gray-400 shadow-md mx-auto'>
-        <thead className='text-xs text-gray-700 uppercase dark:text-gray-400'>
-          <tr>
-            <th scope='col' className='px-6 py-3 bg-gray-50 dark:bg-gray-800'>
-              Temperature ({`\u00b0`}F)
-            </th>
-            <th scope='col' className='px-6 py-3'>
-              Weight (g)
-            </th>
-            <th scope='col' className='px-6 py-3 bg-gray-50 dark:bg-gray-800'>
-              Time (seconds)
-            </th>
-            <th scope='col' className='px-6 py-3'>
-              Yield (g)
-            </th>
-            <th scope='col' className='px-6 py-3'>
-              &nbsp;
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+        <TableHead>
+          <TableRow>
+            <TableCell>Temperature ({`\u00b0`}F)</TableCell>
+            <TableCell>Weight (g)</TableCell>
+            <TableCell> Time (seconds)</TableCell>
+            <TableCell>Yield (g)</TableCell>
+            <TableCell>&nbsp;</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {dials.map((dial) => (
-            <tr
+            <TableRow
               key={dial.id}
-              className='border-b border-gray-200 dark:border-gray-700'>
-              <th
-                scope='row'
-                className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800'>
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableCell component='th' scope='row'>
                 {dial.temp}
-              </th>
-              <td className='px-6 py-4'>{dial.weight}</td>
-              <td className='px-6 py-4 bg-gray-50 dark:bg-gray-800'>
-                {dial.time}
-              </td>
-              <td className='px-6 py-4'>{dial.yield}</td>
-              <td>
-                <button onClick={() => deleteDial(dial.id)}>X</button>
-              </td>
-            </tr>
+              </TableCell>
+              <TableCell align='middle'>{dial.weight}</TableCell>
+              <TableCell align='middle'>{dial.time}</TableCell>
+              <TableCell align='middle'>{dial.yield}</TableCell>
+              <TableCell align='right'>
+                <Button onClick={() => deleteDial(dial.id)}>
+                  <DeleteIcon sx={{ color: "salmon" }} />
+                </Button>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

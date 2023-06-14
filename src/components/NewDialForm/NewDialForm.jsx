@@ -4,6 +4,7 @@ import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
 import { db } from "../../../config/firebase";
+import { Box, Button, Container, TextField } from "@mui/material";
 
 const NewDialForm = ({ coffeeId }) => {
   const [dialInput, setDialInput] = useState({
@@ -45,63 +46,83 @@ const NewDialForm = ({ coffeeId }) => {
   };
 
   return (
-    <section className='new-dial-form__container'>
-      <form className='new-dial-form__form' onSubmit={handleSubmit}>
+    <Container
+      sx={{
+        "& > :not(style)": {
+          m: 1,
+          // width: "25ch",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        },
+      }}>
+      <Box
+        component='form'
+        sx={{
+          "& > :not(style)": {
+            m: 1,
+            width: "25ch",
+          },
+        }}>
         {/* Temperatute Input */}
-        <div>
-          <label id='temp'>Temperature</label>
-          <input
-            type='number'
-            id='temp'
-            placeholder=' '
-            name='temp'
-            required
-            value={dialInput.temp}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
+
+        <TextField
+          id='filled-number'
+          type='number'
+          label='Temperature'
+          variant='filled'
+          name='temp'
+          placeholder=''
+          value={dialInput.temp}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+
         {/* Weight Input */}
-        <div>
-          <label id='weight'>Weight</label>
-          <input
-            type='number'
-            id='weight'
-            placeholder=' '
-            name='weight'
-            required
-            value={dialInput.weight}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
+
+        <TextField
+          id='filled-number'
+          variant='filled'
+          type='number'
+          label='Weight'
+          name='weight'
+          placeholder=''
+          value={dialInput.weight}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+
         {/* Time input */}
-        <div>
-          <label id='time'>Time</label>
-          <input
-            type='number'
-            id='time'
-            placeholder=' '
-            name='time'
-            required
-            value={dialInput.time}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
+        <TextField
+          id='filled-number'
+          variant='filled'
+          type='number'
+          label='Time'
+          name='time'
+          placeholder=''
+          value={dialInput.time}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+
         {/* Yield input */}
-        <div>
-          <label id='yield'>Yield</label>
-          <input
-            type='number'
-            id='yield'
-            placeholder=' '
-            name='yield'
-            required
-            value={dialInput.yield}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <button type='submit'>Add Dial</button>
-      </form>
-    </section>
+        <TextField
+          id='filled-number'
+          variant='filled'
+          type='number'
+          label='Yield'
+          name='yield'
+          placeholder=' '
+          value={dialInput.yield}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+
+        <Button type='submit' onClick={handleSubmit}>
+          Add Dial
+        </Button>
+      </Box>
+    </Container>
   );
 };
 
