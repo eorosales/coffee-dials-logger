@@ -5,6 +5,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { coffeesLoader } from "./routes/loaders.jsx";
 import App from "./App.jsx";
+import Layout from "./components/Layout/Layout";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../config/firebase";
 import CoffeeDetails from "./components/CoffeeDetails/CoffeeDetails";
@@ -19,12 +20,20 @@ const darkTheme = createTheme({
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <Layout>
+        <App />
+      </Layout>
+    ),
     loader: coffeesLoader,
   },
   {
     path: "coffees/:coffeeId",
-    element: <CoffeeDetails />,
+    element: (
+      <Layout>
+        <CoffeeDetails />
+      </Layout>
+    ),
     loader: async ({ params }) => {
       let dials = [];
       const q = query(

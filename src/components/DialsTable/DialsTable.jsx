@@ -36,9 +36,9 @@ const DialsTable = ({ deleteDial }) => {
               <TableCell component='th' scope='row'>
                 {dial.temp}
               </TableCell>
-              <TableCell align='middle'>{dial.weight}</TableCell>
-              <TableCell align='middle'>{dial.time}</TableCell>
-              <TableCell align='middle'>{dial.yield}</TableCell>
+              <TableCell align='center'>{dial.weight}</TableCell>
+              <TableCell align='center'>{dial.time}</TableCell>
+              <TableCell align='center'>{dial.yield}</TableCell>
               <TableCell align='right'>
                 <Button onClick={() => deleteDial(dial.id)}>
                   <DeleteIcon sx={{ color: "salmon" }} />

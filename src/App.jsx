@@ -5,17 +5,17 @@ import "@fontsource/roboto/700.css";
 import "./App.css";
 import { useLoaderData } from "react-router-dom";
 import Coffees from "./components/Coffees/Coffees";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 function App() {
   const { coffees } = useLoaderData();
 
   return (
     <Container>
-      <Typography
+      {/* <Typography
         sx={{ fontSize: "3rem", textAlign: "center", marginBlockEnd: 8 }}>
         Coffee Dials Logger
-      </Typography>
+      </Typography> */}
       <Coffees coffees={coffees} />
     </Container>
   );

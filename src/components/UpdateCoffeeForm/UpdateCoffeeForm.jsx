@@ -129,4 +129,5 @@ export default UpdateCoffeeForm;
 UpdateCoffeeForm.propTypes = {
   coffeeInfo: PropTypes.object.isRequired,
   handleDeleteCoffee: PropTypes.func.isRequired,
+  // handleClose: PropTypes.func.isRequired,
 };

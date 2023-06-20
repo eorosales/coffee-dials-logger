@@ -4,7 +4,15 @@ import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import NewDialForm from "../NewDialForm/NewDialForm";
 import DialsTable from "../DialsTable/DialsTable";
-import { Container } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  List,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 
 const CoffeeDetails = () => {
   const [status, setStatus] = useState("pending");
@@ -36,32 +44,46 @@ const CoffeeDetails = () => {
 
   return (
     <Container>
-      <h1>Coffee</h1>
-      {status === "success" && (
-        <>
-          {Object.values(coffee).map((value) => {
-            return (
-              <div key={`${value.roaster} + ${value.name}`}>
-                <p>{value.roaster}</p>
-                <p>{value.name}</p>
-                <p>{value.origin}</p>
-                <p>{value.process}</p>
-                <ul>
-                  {value.flavor_notes.map((flavor) => (
-                    <li key={flavor}>{flavor}</li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-        </>
-      )}
+      <Card sx={{ mt: "6ch" }}>
+        {status === "success" && (
+          <>
+            <CardContent>
+              {Object.values(coffee).map((value) => {
+                return (
+                  <Box
+                    component='div'
+                    sx={{ display: "flex", justifyContent: "space-around" }}
+                    key={`${value.roaster} + ${value.name}`}>
+                    <Box component='div'>
+                      <Typography variant='h5'>{value.roaster}</Typography>
+                      <Typography variant='h3'>{value.name}</Typography>
+                      <Typography variant='subtitle' color='text.secondary'>
+                        {value.origin}
+                      </Typography>
+                    </Box>
+                    {/* 
+                    
+                    */}
+                    <List>
+                      {/* <Typography variant='h4'>
+                        {value.process} Process
+                      </Typography> */}
+                      {value.flavor_notes.map((flavor) => (
+                        <ListItemText key={flavor} primary={flavor} />
+                      ))}
+                    </List>
+                  </Box>
+                );
+              })}
+            </CardContent>
+          </>
+        )}
+      </Card>
 
-      <section>
-        <h2>Dials</h2>
+      <Box>
         <NewDialForm coffeeId={coffeeId} />
         <DialsTable deleteDial={deleteDial} />
-      </section>
+      </Box>
     </Container>
   );
 };

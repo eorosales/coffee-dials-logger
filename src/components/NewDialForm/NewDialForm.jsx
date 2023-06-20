@@ -4,7 +4,7 @@ import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
 import { db } from "../../../config/firebase";
-import { Box, Button, Container, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 const NewDialForm = ({ coffeeId }) => {
   const [dialInput, setDialInput] = useState({
@@ -46,83 +46,62 @@ const NewDialForm = ({ coffeeId }) => {
   };
 
   return (
-    <Container
-      sx={{
-        "& > :not(style)": {
-          m: 1,
-          // width: "25ch",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        },
-      }}>
-      <Box
-        component='form'
-        sx={{
-          "& > :not(style)": {
-            m: 1,
-            width: "25ch",
-          },
-        }}>
-        {/* Temperatute Input */}
+    <Box sx={{ display: "flex", my: "2ch", justifyContent: "space-between" }}>
+      <TextField
+        id='outlined-number'
+        type='number'
+        label='Temperature'
+        variant='outlined'
+        name='temp'
+        placeholder=''
+        value={dialInput.temp}
+        onChange={(e) => handleChange(e)}
+        required
+      />
 
-        <TextField
-          id='filled-number'
-          type='number'
-          label='Temperature'
-          variant='filled'
-          name='temp'
-          placeholder=''
-          value={dialInput.temp}
-          onChange={(e) => handleChange(e)}
-          required
-        />
+      {/* Weight Input */}
+      <TextField
+        id='outlined-number'
+        variant='outlined'
+        type='number'
+        label='Weight'
+        name='weight'
+        placeholder=''
+        value={dialInput.weight}
+        onChange={(e) => handleChange(e)}
+        required
+      />
 
-        {/* Weight Input */}
+      {/* Time input */}
+      <TextField
+        id='outlined-number'
+        variant='outlined'
+        type='number'
+        label='Time'
+        name='time'
+        placeholder=''
+        value={dialInput.time}
+        onChange={(e) => handleChange(e)}
+        required
+      />
 
-        <TextField
-          id='filled-number'
-          variant='filled'
-          type='number'
-          label='Weight'
-          name='weight'
-          placeholder=''
-          value={dialInput.weight}
-          onChange={(e) => handleChange(e)}
-          required
-        />
+      {/* Yield input */}
+      <TextField
+        id='outlined-number'
+        variant='outlined'
+        type='number'
+        label='Yield'
+        name='yield'
+        placeholder=' '
+        value={dialInput.yield}
+        onChange={(e) => handleChange(e)}
+        required
+      />
 
-        {/* Time input */}
-        <TextField
-          id='filled-number'
-          variant='filled'
-          type='number'
-          label='Time'
-          name='time'
-          placeholder=''
-          value={dialInput.time}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        {/* Yield input */}
-        <TextField
-          id='filled-number'
-          variant='filled'
-          type='number'
-          label='Yield'
-          name='yield'
-          placeholder=' '
-          value={dialInput.yield}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <Button type='submit' onClick={handleSubmit}>
-          Add Dial
-        </Button>
-      </Box>
-    </Container>
+      <Button type='submit' onClick={handleSubmit}>
+        Add Dial
+      </Button>
+    </Box>
   );
 };
 

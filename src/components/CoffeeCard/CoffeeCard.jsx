@@ -5,16 +5,18 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import UpdateCoffeeForm from "../UpdateCoffeeForm/UpdateCoffeeForm";
+
 // MUI
+import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import styled from "@emotion/styled";
-import { IconButton } from "@mui/material";
 import Link from "@mui/material/Link";
+import { IconButton, Modal } from "@mui/material";
+import AlertDeleteCoffee from "../AlertDeleteCoffee/AlertDeleteCoffee";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -35,6 +37,10 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
 
   // Delete coffee and revalidate loader data
   const handleDeleteCoffee = async (id) => {
@@ -98,6 +104,15 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
           handleDeleteCoffee={handleDeleteCoffee}
         />
       </Collapse>
+
+      {/* Error from below */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <AlertDeleteCoffee coffee={coffee} />
+      </Modal>
     </Card>
   );
 };
