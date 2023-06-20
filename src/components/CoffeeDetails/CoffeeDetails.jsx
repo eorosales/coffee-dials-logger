@@ -64,10 +64,10 @@ const CoffeeDetails = () => {
                     {/* 
                     
                     */}
-                    <List>
-                      {/* <Typography variant='h4'>
+                    <List sx={{ textAlign: "right" }}>
+                      <Typography variant='h5'>
                         {value.process} Process
-                      </Typography> */}
+                      </Typography>
                       {value.flavor_notes.map((flavor) => (
                         <ListItemText key={flavor} primary={flavor} />
                       ))}

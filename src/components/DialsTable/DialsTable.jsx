@@ -16,37 +16,46 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const DialsTable = ({ deleteDial }) => {
   const dials = useLoaderData();
 
+  const sortedDials = () => {
+    return Object.keys(dials)
+      .sort((a, b) => {
+        const dialsA = Object.values(dials[a].createdAt)[0];
+        const dialsB = Object.values(dials[b].createdAt)[1];
+        return dialsA - dialsB;
+      })
+      .map((dial) => {
+        return (
+          <TableRow
+            key={dials[dial].id}
+            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+            <TableCell component='th' scope='row'>
+              {dials[dial].temp}
+            </TableCell>
+            <TableCell align='center'>{dials[dial].weight}</TableCell>
+            <TableCell align='center'>{dials[dial].time}</TableCell>
+            <TableCell align='center'>{dials[dial].yield}</TableCell>
+            <TableCell align='right'>
+              <Button onClick={() => deleteDial(dials[dial].id)}>
+                <DeleteIcon sx={{ color: "salmon" }} />
+              </Button>
+            </TableCell>
+          </TableRow>
+        );
+      });
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell>Temperature ({`\u00b0`}F)</TableCell>
             <TableCell>Weight (g)</TableCell>
             <TableCell> Time (seconds)</TableCell>
             <TableCell>Yield (g)</TableCell>
             <TableCell>&nbsp;</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {dials.map((dial) => (
-            <TableRow
-              key={dial.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell component='th' scope='row'>
-                {dial.temp}
-              </TableCell>
-              <TableCell align='center'>{dial.weight}</TableCell>
-              <TableCell align='center'>{dial.time}</TableCell>
-              <TableCell align='center'>{dial.yield}</TableCell>
-              <TableCell align='right'>
-                <Button onClick={() => deleteDial(dial.id)}>
-                  <DeleteIcon sx={{ color: "salmon" }} />
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        <TableBody>{sortedDials()}</TableBody>
       </Table>
     </TableContainer>
   );
