@@ -16,25 +16,24 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const DialsTable = ({ deleteDial }) => {
   const dials = useLoaderData();
 
+  // Render sorted dials from oldest to newwest
   const sortedDials = () => {
     return Object.keys(dials)
       .sort((a, b) => {
         const dialsA = Object.values(dials[a].createdAt)[0];
-        const dialsB = Object.values(dials[b].createdAt)[1];
-        return dialsA - dialsB;
+        const dialsB = Object.values(dials[b].createdAt)[0];
+        return dialsB - dialsA;
       })
       .map((dial) => {
         return (
           <TableRow
             key={dials[dial].id}
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component='th' scope='row'>
-              {dials[dial].temp}
-            </TableCell>
+            <TableCell align='center'>{dials[dial].temp}</TableCell>
             <TableCell align='center'>{dials[dial].weight}</TableCell>
             <TableCell align='center'>{dials[dial].time}</TableCell>
             <TableCell align='center'>{dials[dial].yield}</TableCell>
-            <TableCell align='right'>
+            <TableCell align='center'>
               <Button onClick={() => deleteDial(dials[dial].id)}>
                 <DeleteIcon sx={{ color: "salmon" }} />
               </Button>
@@ -49,10 +48,11 @@ const DialsTable = ({ deleteDial }) => {
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell>Weight (g)</TableCell>
-            <TableCell> Time (seconds)</TableCell>
-            <TableCell>Yield (g)</TableCell>
-            <TableCell>&nbsp;</TableCell>
+            <TableCell align='center'>Temperature (F)</TableCell>
+            <TableCell align='center'>Weight (g)</TableCell>
+            <TableCell align='center'>Time (seconds)</TableCell>
+            <TableCell align='center'>Yield (g)</TableCell>
+            <TableCell align='center'>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{sortedDials()}</TableBody>

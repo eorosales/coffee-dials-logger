@@ -67,8 +67,12 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
             {flavor_notes[flavor_notes.indexOf(note)]}
           </Typography>
         ))}
-        <Link component={RouterLink} to={`coffees/${coffee.id}`}>
-          Details
+
+        <Link
+          component={RouterLink}
+          to={`coffees/${coffee.id}`}
+          style={{ textDecoration: "none" }}>
+          <strong>Details</strong>
         </Link>
       </CardContent>
 

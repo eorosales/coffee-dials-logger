@@ -14,7 +14,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button, Typography } from "@mui/material";
+import { Button, Divider, Typography } from "@mui/material";
 
 const Coffees = ({ coffees }) => {
   const [open, setOpen] = useState(false);
@@ -62,16 +62,28 @@ const Coffees = ({ coffees }) => {
   };
 
   // Render all coffees in db
-  const allCoffees = () =>
-    coffees.map((coffee) => (
-      <Grid key={coffee.id} xs={6} md={4} lg={3}>
-        <CoffeeCard coffee={coffee} toggleFavorite={toggleFavorite} />
+  const allCoffees = () => {
+    return coffees.length > 0 ? (
+      coffees.map((coffee) => (
+        <Grid key={coffee.id} xs={6} md={4} lg={3}>
+          <CoffeeCard coffee={coffee} toggleFavorite={toggleFavorite} />
+        </Grid>
+      ))
+    ) : (
+      <Grid>
+        <Typography variant='h6'>
+          You have no coffees logged. Click ADD NEW COFFEE to add coffee.
+        </Typography>
       </Grid>
-    ));
+    );
+  };
 
   return (
     <>
       <Box sx={{ flexgrow: 1, marginBlockEnd: 4 }}>
+        <Typography variant='h1' sx={{ textAlign: "center", my: ".5ch" }}>
+          Coffee Logger
+        </Typography>
         {/* Grid of Coffees that are favorited */}
         <Typography sx={{ fontSize: "2.2em", marginBlockEnd: 1 }}>
           Favorites
@@ -80,6 +92,7 @@ const Coffees = ({ coffees }) => {
           {favoriteCoffees()}
         </Grid>
       </Box>
+      <Divider variant='middle' sx={{ my: "4ch" }} />
       <Box sx={{ flexgrow: 1, marginBlockEnd: 4 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography sx={{ fontSize: "2.2em", marginBlockEnd: 1 }}>

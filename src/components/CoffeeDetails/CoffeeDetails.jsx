@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams, useRevalidator } from "react-router-dom";
+import {
+  Link as RouterLink,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import NewDialForm from "../NewDialForm/NewDialForm";
@@ -9,6 +13,8 @@ import {
   Card,
   CardContent,
   Container,
+  Divider,
+  Link,
   List,
   ListItemText,
   Typography,
@@ -19,6 +25,7 @@ const CoffeeDetails = () => {
   const { coffeeId } = useParams();
   const revalidator = useRevalidator();
   const coffeeDocRef = doc(db, "coffees", coffeeId);
+
   let coffee = useRef({});
 
   useEffect(() => {
@@ -44,7 +51,13 @@ const CoffeeDetails = () => {
 
   return (
     <Container>
-      <Card sx={{ mt: "6ch" }}>
+      <Link
+        component={RouterLink}
+        to={`/`}
+        sx={{ textDecoration: "none", mt: "2ch" }}>
+        <strong>Back to Home</strong>
+      </Link>
+      <Card sx={{ mt: "2ch" }}>
         {status === "success" && (
           <>
             <CardContent>
@@ -52,7 +65,11 @@ const CoffeeDetails = () => {
                 return (
                   <Box
                     component='div'
-                    sx={{ display: "flex", justifyContent: "space-around" }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                    }}
                     key={`${value.roaster} + ${value.name}`}>
                     <Box component='div'>
                       <Typography variant='h5'>{value.roaster}</Typography>
@@ -61,13 +78,12 @@ const CoffeeDetails = () => {
                         {value.origin}
                       </Typography>
                     </Box>
-                    {/* 
-                    
-                    */}
-                    <List sx={{ textAlign: "right" }}>
+                    <Divider orientation='vertical' flexItem>
                       <Typography variant='h5'>
                         {value.process} Process
                       </Typography>
+                    </Divider>
+                    <List sx={{ textAlign: "right" }}>
                       {value.flavor_notes.map((flavor) => (
                         <ListItemText key={flavor} primary={flavor} />
                       ))}
@@ -79,7 +95,6 @@ const CoffeeDetails = () => {
           </>
         )}
       </Card>
-
       <Box>
         <NewDialForm coffeeId={coffeeId} />
         <DialsTable deleteDial={deleteDial} />
