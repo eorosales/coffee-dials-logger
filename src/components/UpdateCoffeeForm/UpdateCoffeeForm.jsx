@@ -10,7 +10,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, Container } from "@mui/material";
 
-const UpdateCoffeeForm = ({ coffeeInfo, handleDeleteCoffee }) => {
+const UpdateCoffeeForm = ({
+  coffeeInfo,
+  handleDeleteCoffee,
+  handleExpandClick,
+}) => {
   const { roaster, name, origin, process, flavor_notes } = coffeeInfo;
 
   // Form input controlled value states
@@ -47,10 +51,12 @@ const UpdateCoffeeForm = ({ coffeeInfo, handleDeleteCoffee }) => {
         flavor_notes: capitalize(updateData.flavorNotes).split(","),
         createdAt: Date.now(),
       });
+
       revalidator.revalidate();
     } catch (err) {
       throw new Error(err);
     }
+    handleExpandClick();
   };
 
   return (
@@ -60,7 +66,6 @@ const UpdateCoffeeForm = ({ coffeeInfo, handleDeleteCoffee }) => {
         sx={{
           "& > :not(style)": { m: 1, width: "25ch" },
         }}
-        noValidate
         autoComplete='off'
         onSubmit={handleSubmit}>
         <TextField
@@ -129,5 +134,5 @@ export default UpdateCoffeeForm;
 UpdateCoffeeForm.propTypes = {
   coffeeInfo: PropTypes.object.isRequired,
   handleDeleteCoffee: PropTypes.func.isRequired,
-  // handleClose: PropTypes.func.isRequired,
+  handleExpandClick: PropTypes.func.isRequired,
 };

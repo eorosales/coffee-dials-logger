@@ -1,13 +1,16 @@
 // Utils
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
-import { db } from "../../../config/firebase";
-import { capitalize } from "../../utils/capitalize";
+import { addNewCoffee } from "../../utils/utils.js";
 // MUI
-import Box from "@mui/material/Box";
-import { Button, Container, DialogActions, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  DialogActions,
+  TextField,
+} from "@mui/material";
 
 const NewCoffeeForm = ({ handleClose }) => {
   // Form input controlled value states
@@ -18,9 +21,7 @@ const NewCoffeeForm = ({ handleClose }) => {
     process: "",
     flavorNotes: "",
   });
-
   // Firebase utilities
-  const coffeesCollectionRef = collection(db, "coffees");
   const revalidator = useRevalidator();
 
   const handleChange = (e) => {
@@ -33,31 +34,18 @@ const NewCoffeeForm = ({ handleClose }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      await addDoc(coffeesCollectionRef, {
-        roaster: capitalize(formData.roaster),
-        name: capitalize(formData.name),
-        origin: capitalize(formData.origin),
-        process: capitalize(formData.process),
-        flavor_notes: capitalize(formData.flavorNotes).split(","),
-        favorite: false,
-        createdAt: Date.now(),
-      });
-      revalidator.revalidate();
-      handleClose();
-      setFormData({
-        roaster: "",
-        name: "",
-        origin: "",
-        process: "",
-        flavorNotes: "",
-      });
-    } catch (err) {
-      throw new Error(err);
-    }
+    addNewCoffee(formData);
+    revalidator.revalidate();
+    handleClose();
+    setFormData({
+      roaster: "",
+      name: "",
+      origin: "",
+      process: "",
+      flavorNotes: "",
+    });
   };
 
   return (

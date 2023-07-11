@@ -27,8 +27,8 @@ const DialsTable = ({ deleteDial }) => {
       .map((dial) => {
         return (
           <TableRow
-            key={dials[dial].id}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            key={dials[dial].id}>
             <TableCell align='center'>{dials[dial].temp}</TableCell>
             <TableCell align='center'>{dials[dial].weight}</TableCell>
             <TableCell align='center'>{dials[dial].time}</TableCell>

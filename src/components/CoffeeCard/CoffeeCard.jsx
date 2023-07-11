@@ -15,8 +15,11 @@ import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Link from "@mui/material/Link";
-import { IconButton, Modal } from "@mui/material";
-import AlertDeleteCoffee from "../AlertDeleteCoffee/AlertDeleteCoffee";
+import {
+  IconButton,
+  // Modal
+} from "@mui/material";
+// import AlertDeleteCoffee from "../AlertDeleteCoffee/AlertDeleteCoffee";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -38,15 +41,20 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
     setExpanded(!expanded);
   };
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
 
   // Delete coffee and revalidate loader data
   const handleDeleteCoffee = async (id) => {
     const coffeeDoc = doc(db, "coffees", id);
-    await deleteDoc(coffeeDoc);
-    revalidator.revalidate();
+    try {
+      await deleteDoc(coffeeDoc);
+      revalidator.revalidate();
+    } catch (err) {
+      throw Error(err);
+    }
+    handleExpandClick();
   };
 
   return (
@@ -106,17 +114,18 @@ const CoffeeCard = ({ coffee, toggleFavorite }) => {
         <UpdateCoffeeForm
           coffeeInfo={coffee}
           handleDeleteCoffee={handleDeleteCoffee}
+          handleExpandClick={handleExpandClick}
         />
       </Collapse>
 
       {/* Error from below */}
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <AlertDeleteCoffee coffee={coffee} />
-      </Modal>
+      </Modal> */}
     </Card>
   );
 };

@@ -1,21 +1,19 @@
 // Utils
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useRevalidator } from "react-router-dom";
-import { db } from "../../../config/firebase";
-import { Box, Button, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
+import { addNewDial } from "../../utils/utils";
 
 const NewDialForm = ({ coffeeId }) => {
   const [dialInput, setDialInput] = useState({
-    coffeeName: "",
     temp: "",
     weight: "",
     time: "",
     yield: "",
   });
 
-  const dialsCollectionRef = collection(db, "dials");
+  const textfields = ["temp", "weight", "time", "yield"];
   const revalidator = useRevalidator();
 
   const handleChange = (e) => {
@@ -28,80 +26,58 @@ const NewDialForm = ({ coffeeId }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await addDoc(dialsCollectionRef, {
-        coffee: coffeeId,
-        temp: dialInput.temp,
-        weight: dialInput.weight,
-        time: dialInput.time,
-        yield: dialInput.yield,
-        createdAt: serverTimestamp(),
-      });
-      revalidator.revalidate();
-    } catch (err) {
-      console.error(err);
-    }
+    addNewDial(dialInput, coffeeId, () => revalidator.revalidate());
+
+    // const formInputs = Object.keys(dialInput);
+    // let newDialInputs = { ...dialInput };
+
+    // for (let index = 0; index < formInputs.length; index++) {
+    //   const currentField = formInputs[index];
+    //   const currentValue = dialInput[currentField];
+
+    //   if (currentValue === "") {
+    //     newDialInputs = {
+    //       ...newDialInputs,
+    //       [currentField]: {
+    //         ...newDialInputs[currentField],
+    //         error: true,
+    //       },
+    //     };
+    //   }
+    // }
   };
 
   return (
-    <Box sx={{ display: "flex", my: "2ch", justifyContent: "space-between" }}>
-      <TextField
-        id='outlined-number'
-        type='number'
-        label='Temperature'
-        variant='outlined'
-        name='temp'
-        placeholder=''
-        value={dialInput.temp}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-
-      {/* Weight Input */}
-      <TextField
-        id='outlined-number'
-        variant='outlined'
-        type='number'
-        label='Weight'
-        name='weight'
-        placeholder=''
-        value={dialInput.weight}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-
-      {/* Time input */}
-      <TextField
-        id='outlined-number'
-        variant='outlined'
-        type='number'
-        label='Time'
-        name='time'
-        placeholder=''
-        value={dialInput.time}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-
-      {/* Yield input */}
-      <TextField
-        id='outlined-number'
-        variant='outlined'
-        type='number'
-        label='Yield'
-        name='yield'
-        placeholder=' '
-        value={dialInput.yield}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-
-      <Button type='submit' onClick={handleSubmit}>
-        Add Dial
-      </Button>
-    </Box>
+    <Grid container component='form' columns={{ xs: 1, sm: 10 }} spacing={1}>
+      {textfields.map((category) => (
+        <Grid key={category} item xs={1} sm={2} my={1}>
+          <TextField
+            id='outlined-number'
+            label={category}
+            variant='outlined'
+            name={category}
+            placeholder=''
+            value={dialInput[category]}
+            onChange={(e) => handleChange(e)}
+          />
+        </Grid>
+      ))}
+      <Grid
+        item
+        xs={1}
+        sm={2}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}>
+        <Button type='submit' onClick={handleSubmit}>
+          Add Dial
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 

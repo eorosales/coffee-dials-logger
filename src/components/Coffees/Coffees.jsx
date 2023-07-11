@@ -92,6 +92,7 @@ const Coffees = ({ coffees }) => {
           {favoriteCoffees()}
         </Grid>
       </Box>
+
       <Divider variant='middle' sx={{ my: "4ch" }} />
       <Box sx={{ flexgrow: 1, marginBlockEnd: 4 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
